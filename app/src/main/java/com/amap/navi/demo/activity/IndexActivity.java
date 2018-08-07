@@ -3,6 +3,7 @@ package com.amap.navi.demo.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,7 +36,7 @@ public class IndexActivity extends CheckPermissionsActivity implements INaviInfo
                 LatLng epoint = new LatLng(39.935039, 116.492446);
                 Poi epoi = new Poi("乐视大厦", epoint, "");
                 AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), new AmapNaviParams(epoi), IndexActivity.this);
-            } else if (position == 1) {//HUD导航
+            } else if (position == 1) {//HUD导航 无终点
                 AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), new AmapNaviParams(null), IndexActivity.this);
             } else if (position == 2) {//驾车
                 startActivity(new Intent(IndexActivity.this, DriverListActivity.class));
@@ -91,7 +92,6 @@ public class IndexActivity extends CheckPermissionsActivity implements INaviInfo
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
             System.exit(0);// 退出程序

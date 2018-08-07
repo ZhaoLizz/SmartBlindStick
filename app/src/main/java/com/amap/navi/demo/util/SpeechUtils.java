@@ -49,7 +49,6 @@ public class SpeechUtils {
                     TextToSpeech.QUEUE_FLUSH, null);
             Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
         }
-
     }
 
 }

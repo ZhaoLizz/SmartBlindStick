@@ -115,6 +115,7 @@ public class BaseActivity extends Activity implements AMapNaviListener, AMapNavi
     @Override
     public void onGetNavigationText(int type, String text) {
         //播报类型和播报文字回调
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     @Override

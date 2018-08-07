@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.amap.navi.demo"
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -31,4 +31,11 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.1'
     testCompile 'junit:junit:4.12'
+    implementation 'com.orhanobut:logger:2.2.0'
+    compile 'com.amap.api:tripmodule:1.0.0'
+    compile 'com.amap.api:poisearchmodule:1.1.0'
+    compile 'com.amap.api:3dmap:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
+    compile 'com.amap.api:location:latest.integration'
+    compile 'com.google.code.gson:gson:2.8.0'
 }
