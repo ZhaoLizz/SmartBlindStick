@@ -8,7 +8,6 @@ import com.amap.api.navi.enums.NaviType;
 import com.amap.api.navi.model.AMapNaviCross;
 import com.amap.api.navi.model.NaviLatLng;
 import com.amap.navi.demo.R;
-import com.amap.tripmodule.TripHostModuleDelegate;
 
 
 public class WalkRouteCalculateActivity extends BaseActivity {
