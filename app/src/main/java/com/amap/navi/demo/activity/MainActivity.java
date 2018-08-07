@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             showMsg("on msg click");
         }
 
+        /**
+         * 选择城市
+         */
         @Override
         public void onChooseCity() {
             Intent intent = new Intent(MainActivity.this, ChooseCityActivity.class);
@@ -71,15 +74,22 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.overridePendingTransition(R.anim.slide_in_up, 0);
         }
 
+        /**
+         * 选择目的地
+         */
         @Override
         public void onChooseDestPoi() {
             Intent intent = new Intent(MainActivity.this, ChoosePoiActivity.class);
             intent.putExtra(ChoosePoiActivity.POI_TYPE_KEY, DEST_POI_TYPE);
+            //设置默认城市
             intent.putExtra(ChoosePoiActivity.CITY_KEY, mTripHostDelegate.getCurrCity());
             startActivityForResult(intent, REQUEST_CHOOSE_DEST_POI);
             MainActivity.this.overridePendingTransition(R.anim.slide_in_up, 0);
         }
 
+        /**
+         * 选择起点
+         */
         @Override
         public void onChooseStartPoi() {
             Intent intent = new Intent(MainActivity.this, ChoosePoiActivity.class);

@@ -152,6 +152,10 @@ public class ChoosePoiActivity extends AppCompatActivity {
             ChoosePoiActivity.this.overridePendingTransition(0, R.anim.slide_out_down);
         }
 
+        /**
+         * 选择位置监听
+         * @param poiItem
+         */
         @Override
         public void onSelPoiItem(PoiItem poiItem) {
             saveToCache(poiItem);
