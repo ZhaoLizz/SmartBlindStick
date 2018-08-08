@@ -62,6 +62,8 @@ public class IndexActivity extends CheckPermissionsActivity implements INaviInfo
                 startActivity(new Intent(IndexActivity.this, GetNaviStepsAndLinksActivity.class));
             } else if (position == 13) { // 输入起点和终点
                 startActivity(new Intent(IndexActivity.this, MainActivity.class));
+            } else if (position == 14) {
+                startActivity(new Intent(IndexActivity.this, TestActivity.class));
             }
 
         }
@@ -69,7 +71,7 @@ public class IndexActivity extends CheckPermissionsActivity implements INaviInfo
     private String[] examples = new String[]
 
             {"高德地图(有终点)", "高德地图(无终点)", "驾车路线规划", "步行路线规划", "骑行路线规划 ( NEW!! )", "实时导航", "模拟导航", "智能巡航", "使用设备外GPS数据导航",
-                    "导航UI自定义", "HUD导航", "导航回调说明(见代码)", "展示导航路径详情(见代码)", "输入起点和终点"
+                    "导航UI自定义", "HUD导航", "导航回调说明(见代码)", "展示导航路径详情(见代码)", "输入起点和终点","测试"
             };
     AmapTTSController amapTTSController;
 

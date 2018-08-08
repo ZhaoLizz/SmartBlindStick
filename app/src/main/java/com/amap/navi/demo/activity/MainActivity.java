@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.amap.api.maps.model.LatLng;
@@ -13,6 +14,7 @@ import com.amap.poisearch.util.CityModel;
 import com.amap.tripmodule.ITripHostModule.IDelegate;
 import com.amap.tripmodule.ITripHostModule.IParentDelegate;
 import com.amap.tripmodule.TripHostModuleDelegate;
+import com.orhanobut.logger.Logger;
 
 import static com.amap.poisearch.searchmodule.ISearchModule.IDelegate.DEST_POI_TYPE;
 import static com.amap.poisearch.searchmodule.ISearchModule.IDelegate.START_POI_TYPE;
@@ -83,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(ChoosePoiActivity.POI_TYPE_KEY, DEST_POI_TYPE);
             //设置默认城市
             intent.putExtra(ChoosePoiActivity.CITY_KEY, mTripHostDelegate.getCurrCity());
+            Logger.d("当前位置: " + mTripHostDelegate.getCurrLocation().getAddress() + " tostring: " + mTripHostDelegate.getCurrLocation());
+            Log.d("选择目的地", "当前位置: " + mTripHostDelegate.getCurrLocation().getAddress() + " tostring: " + mTripHostDelegate.getCurrLocation());
             startActivityForResult(intent, REQUEST_CHOOSE_DEST_POI);
             MainActivity.this.overridePendingTransition(R.anim.slide_in_up, 0);
         }

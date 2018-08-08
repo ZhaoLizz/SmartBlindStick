@@ -3,6 +3,7 @@ package com.amap.navi.demo.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.amap.api.location.AMapLocation;
@@ -10,12 +11,16 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.services.core.PoiItem;
 import com.amap.navi.demo.R;
+import com.amap.poisearch.searchmodule.AMapSearchUtil;
 import com.amap.poisearch.searchmodule.ISearchModule.IDelegate.IParentDelegate;
 import com.amap.poisearch.searchmodule.SearchModuleDelegate;
 import com.amap.poisearch.util.CityModel;
 import com.amap.poisearch.util.FavAddressUtil;
 import com.amap.poisearch.util.PoiItemDBHelper;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
+
+import java.util.List;
 
 import static com.amap.poisearch.searchmodule.ISearchModule.IDelegate.START_POI_TYPE;
 
@@ -52,6 +57,24 @@ public class ChoosePoiActivity extends AppCompatActivity {
         mSearchModuelDeletage.setCity(mCityModel);
         mSearchModuelDeletage.bindParentDelegate(mSearchModuleParentDelegate);
         contentView.addView(mSearchModuelDeletage.getWidget(this));
+
+        //test search
+        final long mCurrSearchId = java.lang.System.currentTimeMillis();
+        String inputStr = "环亚";
+        AMapSearchUtil.doSug(getApplicationContext(), mCurrSearchId, inputStr, mCityModel.getAdcode(), null, new AMapSearchUtil.OnSugListener() {
+            @Override
+            public void onSug(List<PoiItem> list, int i, long searchId) {
+                // 只取最新的结果
+                if (searchId < mCurrSearchId) {
+                    return;
+                }
+
+                int k = 0;
+                for (PoiItem poiItem : list) {
+                    Log.d(k++ + "search", poiItem.getTitle() +" "+ poiItem.getAdName()+" " + poiItem.getCityName());
+                }
+            }
+        });
     }
 
     public AMapLocationClient mLocationClient = null;
@@ -120,6 +143,7 @@ public class ChoosePoiActivity extends AppCompatActivity {
 
             startActivityForResult(intent, MAIN_ACTIVITY_REQUEST_FAV_ADDRESS_CODE);
         }
+
         @Override
         public void onSetFavHomePoi() {
             showToast("设置家的地址");

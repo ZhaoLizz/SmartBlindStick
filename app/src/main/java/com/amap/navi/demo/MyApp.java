@@ -2,6 +2,9 @@ package com.amap.navi.demo;
 
 import android.app.Application;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+
 /**
  * Created by shixin on 16/8/23.
  * bug反馈QQ:1438734562
@@ -17,5 +20,6 @@ public class MyApp extends Application {
          * 可以忽略，这个方法主要是为那些不想在xml里配置key的用户使用。
          * **/
 //        AMapNavi.setApiKey(this, "你的KEY");
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 }
