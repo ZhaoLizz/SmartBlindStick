@@ -10,11 +10,14 @@ import android.widget.Toast;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.PoiItem;
 import com.amap.navi.demo.R;
+import com.amap.poisearch.searchmodule.AMapSearchUtil;
 import com.amap.poisearch.util.CityModel;
 import com.amap.tripmodule.ITripHostModule.IDelegate;
 import com.amap.tripmodule.ITripHostModule.IParentDelegate;
 import com.amap.tripmodule.TripHostModuleDelegate;
 import com.orhanobut.logger.Logger;
+
+import java.util.List;
 
 import static com.amap.poisearch.searchmodule.ISearchModule.IDelegate.DEST_POI_TYPE;
 import static com.amap.poisearch.searchmodule.ISearchModule.IDelegate.START_POI_TYPE;
@@ -34,6 +37,26 @@ public class MainActivity extends AppCompatActivity {
 
         contentView.addView(mTripHostDelegate.getWidget(this));
         mTripHostDelegate.onCreate(savedInstanceState);
+
+        //test--------------------
+        Logger.d("当前位置: " + mTripHostDelegate.getCurrLocation().getAddress() + " tostring: " + mTripHostDelegate.getCurrLocation());
+        //test search
+        final long mCurrSearchId = java.lang.System.currentTimeMillis();
+        String inputStr = "一中";
+        AMapSearchUtil.doSug(getApplicationContext(), mCurrSearchId, inputStr, mTripHostDelegate.getCurrCity().getAdcode(), null, new AMapSearchUtil.OnSugListener() {
+            @Override
+            public void onSug(List<PoiItem> list, int i, long searchId) {
+                // 只取最新的结果
+                if (searchId < mCurrSearchId) {
+                    return;
+                }
+
+                int k = 0;
+                for (PoiItem poiItem : list) {
+                    Log.d(k++ + "search", poiItem.getTitle() + " " + poiItem.getAdName() + " " + poiItem.getCityName() + " " + poiItem.getLatLonPoint());
+                }
+            }
+        });
     }
 
     @Override
@@ -85,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(ChoosePoiActivity.POI_TYPE_KEY, DEST_POI_TYPE);
             //设置默认城市
             intent.putExtra(ChoosePoiActivity.CITY_KEY, mTripHostDelegate.getCurrCity());
-            Logger.d("当前位置: " + mTripHostDelegate.getCurrLocation().getAddress() + " tostring: " + mTripHostDelegate.getCurrLocation());
-            Log.d("选择目的地", "当前位置: " + mTripHostDelegate.getCurrLocation().getAddress() + " tostring: " + mTripHostDelegate.getCurrLocation());
             startActivityForResult(intent, REQUEST_CHOOSE_DEST_POI);
             MainActivity.this.overridePendingTransition(R.anim.slide_in_up, 0);
         }

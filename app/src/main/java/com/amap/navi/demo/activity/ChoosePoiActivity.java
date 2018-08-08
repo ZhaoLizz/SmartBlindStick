@@ -57,24 +57,6 @@ public class ChoosePoiActivity extends AppCompatActivity {
         mSearchModuelDeletage.setCity(mCityModel);
         mSearchModuelDeletage.bindParentDelegate(mSearchModuleParentDelegate);
         contentView.addView(mSearchModuelDeletage.getWidget(this));
-
-        //test search
-        final long mCurrSearchId = java.lang.System.currentTimeMillis();
-        String inputStr = "环亚";
-        AMapSearchUtil.doSug(getApplicationContext(), mCurrSearchId, inputStr, mCityModel.getAdcode(), null, new AMapSearchUtil.OnSugListener() {
-            @Override
-            public void onSug(List<PoiItem> list, int i, long searchId) {
-                // 只取最新的结果
-                if (searchId < mCurrSearchId) {
-                    return;
-                }
-
-                int k = 0;
-                for (PoiItem poiItem : list) {
-                    Log.d(k++ + "search", poiItem.getTitle() +" "+ poiItem.getAdName()+" " + poiItem.getCityName());
-                }
-            }
-        });
     }
 
     public AMapLocationClient mLocationClient = null;

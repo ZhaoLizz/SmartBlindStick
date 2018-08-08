@@ -224,6 +224,8 @@
 
         <activity
             android:name=".activity.TestActivity"
+            android:theme="@style/TranparentTheme"
+            android:windowSoftInputMode="adjustPan">
             android:label="@string/title_activity_test">
         </activity>
     </application>
