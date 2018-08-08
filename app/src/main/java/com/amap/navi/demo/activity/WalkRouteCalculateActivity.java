@@ -21,6 +21,7 @@ public class WalkRouteCalculateActivity extends BaseActivity {
         mAMapNaviView.onCreate(savedInstanceState);
         mAMapNaviView.setAMapNaviViewListener(this);
         mAMapNaviView.setNaviMode(AMapNaviView.NORTH_UP_MODE);
+        //语音回调在BaseActivity里面
     }
 
     @Override

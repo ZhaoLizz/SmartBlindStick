@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.TestActivity">
 
-    <TextView
+    <EditText
         android:id="@+id/des_tv"
         android:hint="终点"
         android:layout_width="match_parent"

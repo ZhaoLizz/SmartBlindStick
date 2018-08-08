@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.PoiItem;
 import com.amap.navi.demo.R;
@@ -25,12 +26,13 @@ import static com.amap.poisearch.searchmodule.ISearchModule.IDelegate.START_POI_
 public class MainActivity extends AppCompatActivity {
 
     private TripHostModuleDelegate mTripHostDelegate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RelativeLayout contentView = (RelativeLayout)findViewById(R.id.content_view);
+        RelativeLayout contentView = (RelativeLayout) findViewById(R.id.content_view);
 
         mTripHostDelegate = new TripHostModuleDelegate();
         mTripHostDelegate.bindParentDelegate(mParentTripDelegate);
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         mTripHostDelegate.onCreate(savedInstanceState);
 
         //test--------------------
-        Logger.d("当前位置: " + mTripHostDelegate.getCurrLocation().getAddress() + " tostring: " + mTripHostDelegate.getCurrLocation());
+//        Logger.d("当前位置: " + mTripHostDelegate.getCurrLocation().getAddress() + " tostring: " + mTripHostDelegate.getCurrLocation());
         //test search
         final long mCurrSearchId = java.lang.System.currentTimeMillis();
         String inputStr = "一中";
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 if (searchId < mCurrSearchId) {
                     return;
                 }
+                Logger.d("当前位置: " + mTripHostDelegate.getCurrLocation().getAddress() + " tostring: " + mTripHostDelegate.getCurrLocation());
 
                 int k = 0;
                 for (PoiItem poiItem : list) {
@@ -172,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
 
                     float res[] = new float[1];
                     Location.distanceBetween(poiItem.getLatLonPoint().getLatitude(),
-                        poiItem.getLatLonPoint().getLongitude(), mStartPoi.getLatLonPoint().getLatitude(),
-                        mStartPoi.getLatLonPoint().getLongitude(), res);
+                            poiItem.getLatLonPoint().getLongitude(), mStartPoi.getLatLonPoint().getLatitude(),
+                            mStartPoi.getLatLonPoint().getLongitude(), res);
 
                     if (res[0] <= MIN_START_DEST_DISTANCE) {
                         showMsg("距离过近，请重新选择目的地");
@@ -201,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     mStartPoi = poiItem;
                     mTripHostDelegate.setStartLocation(poiItem.getTitle());
                     mTripHostDelegate.moveCameraPosTo(
-                        new LatLng(poiItem.getLatLonPoint().getLatitude(), poiItem.getLatLonPoint().getLongitude()));
+                            new LatLng(poiItem.getLatLonPoint().getLatitude(), poiItem.getLatLonPoint().getLongitude()));
                 } catch (Exception e) {
                     showMsg("请选择正确的目的地");
                 }
@@ -216,9 +219,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         LatLng startLL = new LatLng(mStartPoi.getLatLonPoint().getLatitude(),
-            mStartPoi.getLatLonPoint().getLongitude());
+                mStartPoi.getLatLonPoint().getLongitude());
         LatLng destLL = new LatLng(mDestPoi.getLatLonPoint().getLatitude(),
-            mDestPoi.getLatLonPoint().getLongitude());
+                mDestPoi.getLatLonPoint().getLongitude());
 
 
         mTripHostDelegate.showPoiRes(startLL, destLL);
@@ -237,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 在切换为输入模式后，设置模式，触发TripHostDelegate重置
      */
-    private void onBackToInputMode(){
+    private void onBackToInputMode() {
         mTripHostDelegate.setMode(IDelegate.INPUT_MODE, mStartPoi);
         mDestPoi = null;
     }
