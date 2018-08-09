@@ -1,21 +1,26 @@
 package com.amap.navi.demo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.navi.AMapNaviView;
 import com.amap.api.navi.enums.NaviType;
 import com.amap.api.navi.model.AMapNaviCross;
 import com.amap.api.navi.model.NaviLatLng;
 import com.amap.navi.demo.R;
+import com.orhanobut.logger.Logger;
 
 
 public class WalkRouteCalculateActivity extends BaseActivity {
+    private Intent mIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mIntent = getIntent();
         setContentView(R.layout.activity_basic_navi);
         mAMapNaviView = (AMapNaviView) findViewById(R.id.navi_view);
         mAMapNaviView.onCreate(savedInstanceState);
@@ -27,7 +32,13 @@ public class WalkRouteCalculateActivity extends BaseActivity {
     @Override
     public void onInitNaviSuccess() {
         super.onInitNaviSuccess();
-        mAMapNavi.calculateWalkRoute(new NaviLatLng(39.925846, 116.435765), new NaviLatLng(39.925846, 116.532765));
+        if (mIntent != null) {
+            LatLng curLatLng = mIntent.getParcelableExtra(TestActivity.EXTRA_CUR_LATLNG);
+            LatLng desLatLng = mIntent.getParcelableExtra(TestActivity.EXTRA_DES_LATLNG);
+            mAMapNavi.calculateWalkRoute(new NaviLatLng(curLatLng.latitude, curLatLng.longitude), new NaviLatLng(desLatLng.latitude, desLatLng.longitude));
+        } else {
+            Logger.e("mIntent is null!");
+        }
     }
 
     @Override
@@ -36,5 +47,4 @@ public class WalkRouteCalculateActivity extends BaseActivity {
 //        mAMapNavi.startNavi(NaviType.GPS);
         mAMapNavi.startNavi(NaviType.EMULATOR);
     }
-
 }
