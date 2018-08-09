@@ -26,7 +26,7 @@ android {
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -34,10 +34,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     implementation 'com.orhanobut:logger:2.2.0'
     compile 'com.google.code.gson:gson:2.8.0'
-
     compile 'com.amap.api:tripmodule:1.0.0'
     compile 'com.amap.api:poisearchmodule:1.1.0'
-//    compile 'com.amap.api:3dmap:latest.integration'
+    //    compile 'com.amap.api:3dmap:latest.integration'
     compile 'com.amap.api:search:latest.integration'
     compile 'com.amap.api:location:latest.integration'
+    implementation files('libs/Sunflower.jar')
 }

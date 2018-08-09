@@ -2,6 +2,8 @@ package com.amap.navi.demo;
 
 import android.app.Application;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -21,5 +23,8 @@ public class MyApp extends Application {
          * **/
 //        AMapNavi.setApiKey(this, "你的KEY");
         Logger.addLogAdapter(new AndroidLogAdapter());
+        //科大讯飞
+        SpeechUtility.createUtility(this, SpeechConstant.APPID +"5b6af432");
+
     }
 }

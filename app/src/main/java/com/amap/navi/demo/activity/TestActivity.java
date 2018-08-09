@@ -17,7 +17,11 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.PoiItem;
 import com.amap.navi.demo.R;
 import com.amap.navi.demo.util.AmapTTSController;
+import com.amap.navi.demo.util.SpeechRecognize;
 import com.amap.poisearch.searchmodule.AMapSearchUtil;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -31,6 +35,7 @@ public class TestActivity extends Activity {
     private Button upBt;
     private Button downBt;
     private Button confrimBt;
+    private Button voiceBt;
     AmapTTSController amapTTSController;
     public static final String EXTRA_CUR_LATLNG = "extra_cur_latlng";
     public static final String EXTRA_DES_LATLNG = "extra_des_latlng";
@@ -45,6 +50,7 @@ public class TestActivity extends Activity {
         upBt = (Button) findViewById(R.id.up_bt);
         downBt = (Button) findViewById(R.id.down_bt);
         confrimBt = (Button) findViewById(R.id.confirm_bt);
+        voiceBt = (Button) findViewById(R.id.voice_bt);
         //初始化语音
         amapTTSController = AmapTTSController.getInstance(getApplicationContext());
         amapTTSController.init();
@@ -88,7 +94,7 @@ public class TestActivity extends Activity {
                                     @Override
                                     public void onClick(View view) {
                                         amapTTSController.stopSpeaking();
-                                        if (k[0] < m -1) {
+                                        if (k[0] < m - 1) {
                                             k[0]++;
                                             Logger.d(k[0]);
                                             amapTTSController.onGetNavigationText("第" + k[0] + "个选项为" + list.get(k[0]).getTitle());
@@ -153,6 +159,27 @@ public class TestActivity extends Activity {
             public void onClick(View view) {
                 //启动定位,然后搜索目的地
                 mLocationClient.startLocation();
+            }
+        });
+
+        voiceBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SpeechRecognize().initSpeech(getApplicationContext(), new RecognizerDialogListener() {
+                    @Override
+                    public void onResult(RecognizerResult recognizerResult, boolean isLast) {
+                        if (!isLast) {
+                            //解析语音
+                            String result = SpeechRecognize.parseVoice(recognizerResult.getResultString());
+                            Logger.d("speech result: " + result);
+                        }
+                    }
+
+                    @Override
+                    public void onError(SpeechError speechError) {
+
+                    }
+                });
             }
         });
     }
